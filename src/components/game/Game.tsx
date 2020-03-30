@@ -1,37 +1,36 @@
 import React from "react";
-import { Link } from 'react-router-dom';
-import { Grid } from "@material-ui/core";
+import {HashRouter as Router, Route, Switch, Link ,useHistory} from "react-router-dom";
+import GameList from "./GameList";
+import Basketball from "./baskatball/Baskatball";
+import { makeStyles } from '@material-ui/core/styles';
+import { Container } from "@material-ui/core";
 
-const gameList = [
-  {
-    name: "小恐龙",
-    path: "/dragon"
-  },
-  {
-    name: "动感弹球",
-    path: "/ball"
-  },
-  {
-    name: "坦克世界",
-    path: "/tank"
+const useStyles = makeStyles((theme) => ({
+  GameContainer: {
+    'max-width': '960px'
   }
-]
+}));
 
 export default function Game(props: any) {
 
+  const classes = useStyles();
+
+  const history = useHistory();
+
   return (
-    <>
-      <Grid>
-        游戏内容
-      </Grid>
-      <Grid>
-        {gameList.map(game => 
-          (<Link to={game.path}>
-            {game.name}
-          </Link>)
-        )}
-      </Grid>
-    </>
+    <Container className={classes.GameContainer}>
+      <Router basename="/games">
+        {
+          ["/games/", "/games"].includes(history.location.pathname) ?  "" : <Link to={""}>返回</Link>
+        }
+        <Switch>
+          <Route path="/ball" component={Basketball}></Route>
+          <Route>
+            <GameList></GameList>
+          </Route>
+        </Switch>
+      </Router>
+    </Container>
   )
 
 }
