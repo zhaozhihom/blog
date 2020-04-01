@@ -16,6 +16,9 @@ const useStyles = makeStyles((theme) => ({
   mainGrid: {
     marginTop: theme.spacing(3),
   },
+  wrapOuter: {
+    marginLeft: 'calc(100vw - 100%)'
+  }
 }));
 
 const sections = [
