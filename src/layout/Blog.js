@@ -56,7 +56,22 @@ const featuredPosts = [
   },
 ];
 
-const posts = ['post1', 'post2', 'post3'];
+const posts = [{
+  title: 'Breaking News',
+  content: 'People load on Mars'
+}, {
+  title: 'Lovely Girls',
+  content: 'pretty girls in the class'
+}, {
+  title: 'Good Time',
+  content: 'Every Day is good time'
+},{
+  title: 'Good Time',
+  content: 'Every Day is good time'
+},{
+  title: 'Good Time',
+  content: 'Every Day is good time'
+}];
 
 const sidebar = {
   title: 'About',
