@@ -14,7 +14,9 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
   },
   root: {
-    marginTop: '20px'
+    // marginLeft: '10%',
+    // width: '80%',
+    borderRadius: 0
   },
   content: {
     flex: 1,
@@ -41,14 +43,6 @@ export default function Article(props: any) {
   return (
     <Card className={classes.root}>
       <CardActionArea className={classes.area}>
-        <CardMedia
-          className={classNames(classes.content, classes.cover)}
-          component="img"
-          alt="Contemplative Reptile"
-          height="140"
-          image="image/whale-6-removebg-preview.png"
-          title="Contemplative Reptile"
-        />
         <CardContent className={classes.content}>
           <Typography gutterBottom variant="h5" component="h2">
             {props.post.title}

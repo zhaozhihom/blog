@@ -8,24 +8,22 @@ import TwitterIcon from '@material-ui/icons/Twitter';
 import Header from './Header';
 import Footer from './Footer';
 import {HashRouter as Router, Route} from "react-router-dom";
-import Index from '../components/index/Index';
 import Game from '../components/game/Game';
+import Articles from '../components/article/Articles';
+
 
 
 const useStyles = makeStyles((theme) => ({
   mainGrid: {
     marginTop: theme.spacing(3),
-  },
-  wrapOuter: {
-    marginLeft: 'calc(100vw - 100%)'
   }
 }));
 
 const sections = [
-  { title: 'Technology', url: '/' },
-  { title: 'Algorithm', url: '/a' },
-  { title: 'Jottings', url: '#' },
-  { title: 'Mini Game', url: '/games' }
+  { title: 'Home', url: '/' },
+  { title: 'Articles', url: '/articles' },
+  { title: 'Games', url: '/games' },
+  { title: 'About', url: '/about' }
 ];
 
 const mainFeaturedPost = {
@@ -108,12 +106,12 @@ export default function Blog() {
           <Header title="宏桑のBlog" sections={sections} />
           <main> 
             <Route path="/games" component={Game}></Route>     
-            <Route exact path="/" render={() => <Index 
-              post={mainFeaturedPost} 
-              featuredPosts={featuredPosts} 
-              classes={classes}
+            <Route path="/articles" render={() => <Articles
               posts={posts}
-              sidebar={sidebar}
+              ></Articles>}>
+            </Route>     
+            <Route exact path="/" render={() => <Articles 
+              posts={posts}
             />}></Route>
           </main>
         </Container>

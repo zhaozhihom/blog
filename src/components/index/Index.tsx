@@ -18,19 +18,19 @@ export default function Index(props: any){
   return (
     <>
       <MainFeaturedPost post={post} />
-      <Grid container spacing={4}>
+      {/* <Grid container spacing={4}>
         {featuredPosts.map((post) => (
           <FeaturedPost key={post.title} post={post} />
         ))}
-      </Grid>
+      </Grid> */}
       <Grid container spacing={5} className={classes.mainGrid}>
         <Main title="From the firehose" posts={posts} />
-        <Sidebar
+        {/* <Sidebar
           title={sidebar.title}
           description={sidebar.description}
           archives={sidebar.archives}
           social={sidebar.social}
-        />
+        /> */}
       </Grid>
     </>
   )
