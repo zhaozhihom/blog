@@ -1,4 +1,4 @@
-import React, {useRef, useEffect} from 'react';
+import React, {useRef, useEffect, useState} from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -21,8 +21,19 @@ const useStyles = makeStyles((theme) => ({
     //borderBottom: `1px solid ${theme.palette.divider}`,
     //backgroundImage: 'linear-gradient(#ffffff, #3586ff)'
   },
+  whaleImage1: {
+    position: 'absolute',
+    marginLeft: '48px',
+    transform:'rotate(15deg)',
+    opacity: 0
+  },
+  whaleImage2: {
+
+  },
   toolbarTitle: {
     flex: 1,
+    fontSize: '2rem',
+    opacity: 0
   },
   toolbarSecondary: {
     justifyContent: 'space-between',
@@ -31,12 +42,6 @@ const useStyles = makeStyles((theme) => ({
   toolbarLink: {
     padding: theme.spacing(1),
     flexShrink: 0
-  },
-  titleCenter: {
-    fontSize: '50px',
-    color: '#ffffff',
-    textAlign: "center",
-    // paddingTop: '5vh'
   }
 }));
 
@@ -44,30 +49,67 @@ export default function Header(props) {
   const classes = useStyles();
   const { sections, title } = props;
   const tl = new TimelineLite({paused: false});
+  const tl1 = new TimelineLite({paused: false});
 
   const whale = useRef(null);
+  const water = useRef(null);
+  const titlee = useRef(null);
+  const [showWater, setShowWater] = useState(0);
+
   useEffect(() => {
+    const windowWidth = window.innerWidth;
+    console.log('windowWidth: ', windowWidth);
+    const deviceType = detectDeviceType();
+    const titleDiv: HTMLElement = titlee.current;
+
+
+
     tl.to(whale.current, 2, 
-      {x: '150px', y: '300px', scale: 2,  opacity:1, rotation:30, transformOrigin:"50% 0%", ease:Power2.easeIn})
+      {x: '7.8vw', y: '30vh', scale: 2,  opacity:1, rotation:30, transformOrigin:"50% 0%", ease:Power2.easeIn})
       .to(whale.current, 3, 
-        {x: '500px', y: '100px', scale: 2,  opacity:1, rotation: -30, transformOrigin:"50% top", ease:Power2.easeOut})
+        {x: '27vw', y: '10vh', scale: 2,  opacity:1, rotation: -20, transformOrigin:"50% top", ease:Power2.easeOut, onComplete: titleTimeLine})
         .to(whale.current, 2, 
-          {x: '850px', y: '400px', scale: 2,  opacity:1, rotation:40, transformOrigin:"50% 0%", ease:Power2.easeIn})
+          {x: '44vw', y: '30vh', scale: 2,  opacity:1, rotation:40, transformOrigin:"50% 0%", ease:Power2.easeIn})
           .to(whale.current, 0, 
             {x: '0', y: '0', scale: 1,  opacity:1, rotation:0, transformOrigin:"center", ease:Power2.easeIn});
+    
   })
+
+  const titleTimeLine = () => {
+    //setShowWater(1);
+    TweenMax.from(water.current, 1, {opacity: 1, ease:Power3.easeIn});
+    tl1.to(titlee.current, 2, {opacity:1, scale: 1, ease:Power3.easeOut});
+    //setShowWater(0);
+  }
+
+  const detectDeviceType = () =>
+  /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
+    ? 'Mobile'
+    : 'Desktop';
 
   return (
     <div className={classes.root}>
       <Toolbar className={classes.toolbar}>
         {/* <Button size="small">Subscribe</Button> */}
         <RouteLink to="/" >
-          <img ref={whale}          
-            src="image/whale-5-removebg-preview.png" 
-            height="60px" 
-            alt="..."></img>
+          <div ref={whale} className={classes.whaleBox}>
+            <img src="image/water.png"
+                  height="20px" 
+                  alt="..."
+                  className={classes.whaleImage1}
+                  style={{ opacity: showWater}}
+                  ref={water}
+            ></img>
+            <img           
+              src="image/whale-5-removebg-preview.png" 
+              height="60px" 
+              alt="..."
+              className={classes.whaleImage2}
+              ></img>
+          </div>
         </RouteLink>
         <Typography
+          ref={titlee}
           component="h2"
           variant="h5"
           color="inherit"

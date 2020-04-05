@@ -23,7 +23,6 @@ export default function Articles(props: any) {
   const classes = useStyles();
   const { posts, title } = props;
   const parent = useRef(null);
-  const tl = new TimelineLite();
 
   useEffect(() => {
     const p: HTMLDivElement = parent.current;
@@ -34,7 +33,7 @@ export default function Articles(props: any) {
     //   //childrenn.push(child.firstElementChild);
     //   //tl.from(child, 0.8, {rotation:60, transformOrigin:"-1024px -1024px", repeat:0, ease:Power3.easeOut})
     // })
-    tl.staggerFromTo(children, 2, {y: "100%", opacity:0, ease:Power3.easeIn}, {y: "0%", opacity:1, ease:Power3.easeOut}, .15)
+    TweenMax.staggerFromTo(children, 2, {y: "100%", opacity:0, ease:Power3.easeIn}, {y: "0%", opacity:1, ease:Power3.easeOut}, .15)
   }) 
 
   return (

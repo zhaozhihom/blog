@@ -64,10 +64,10 @@ const posts = [{
   title: 'Good Time',
   content: 'Every Day is good time'
 },{
-  title: 'Good Time',
+  title: 'Pretty Boy',
   content: 'Every Day is good time'
 },{
-  title: 'Good Time',
+  title: 'Fish Man',
   content: 'Every Day is good time'
 }];
 
