@@ -7,7 +7,6 @@ import Typography from '@material-ui/core/Typography';
 import GitHubIcon from '@material-ui/icons/GitHub';
 import TwitterIcon from '@material-ui/icons/Twitter';
 import { Link as RouteLink } from 'react-router-dom';
-import classNames from 'classnames';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import '../styles/Header.css';
@@ -65,11 +64,11 @@ export default function Header(props) {
 
 
     tl.to(whale.current, 2, 
-      {x: '7.8vw', y: '30vh', scale: 2,  opacity:1, rotation:30, transformOrigin:"50% 0%", ease:Power2.easeIn})
+      {x: '7.8vw', y: '26vh', scale: 2,  opacity:1, rotation:30, transformOrigin:"50% 0%", ease:Power2.easeIn})
       .to(whale.current, 3, 
         {x: '27vw', y: '10vh', scale: 2,  opacity:1, rotation: -20, transformOrigin:"50% top", ease:Power2.easeOut, onComplete: titleTimeLine})
         .to(whale.current, 2, 
-          {x: '44vw', y: '30vh', scale: 2,  opacity:1, rotation:40, transformOrigin:"50% 0%", ease:Power2.easeIn})
+          {x: '44vw', y: '26vh', scale: 2,  opacity:1, rotation:40, transformOrigin:"50% 0%", ease:Power2.easeIn})
           .to(whale.current, 0, 
             {x: '0', y: '0', scale: 1,  opacity:1, rotation:0, transformOrigin:"center", ease:Power2.easeIn});
     

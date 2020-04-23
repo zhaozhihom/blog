@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { TimelineLite, Power3, TweenMax, Linear } from "gsap";
 import Article from './Article';
 import { Card, ButtonGroup, Button } from '@material-ui/core';
+import axios from 'axios' 
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -20,26 +21,12 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Articles(props: any) {
+  const size = 5;
+  const [animotionSize, setAnimotionSize] = useState(0);
   const classes = useStyles();
   const { title } = props;
-  const [posts, setPost] = useState(
-    [{
-      title: 'Breaking News',
-      content: 'People load on Mars'
-    }, {
-      title: 'Lovely Girls',
-      content: 'pretty girls in the class'
-    }, {
-      title: 'Good Time',
-      content: 'Every Day is good time'
-    },{
-      title: 'Pretty Boy',
-      content: 'Every Day is good time'
-    },{
-      title: 'Fish Man',
-      content: 'Every Day is good time'
-    }]
-  );
+  const [page, setPage] = useState(1)
+  const [posts, setPost] = useState([]);
   const [loading, setLoading] = useState(false);
   const parent = useRef(null);
   // Detect when scrolled to bottom.
@@ -47,7 +34,7 @@ export default function Articles(props: any) {
     console.log('--------------scrolling---------------')
     if (
       document.body.scrollTop + document.body.clientHeight >=
-      document.body.scrollHeight && !loading
+      document.body.scrollHeight && !loading && animotionSize > 0
     ) {
       setLoading(true);
       setTimeout(()=> {
@@ -66,47 +53,51 @@ export default function Articles(props: any) {
     //   //childrenn.push(child.firstElementChild);
     //   //tl.from(child, 0.8, {rotation:60, transformOrigin:"-1024px -1024px", repeat:0, ease:Power3.easeOut})
     // })
+    if (page === 1 && !loading){
+      loadMore()
+    }
+    
     const last5Children = [];
     const len = children.length;
-    last5Children[0] = children[len - 5];
-    last5Children[1] = children[len - 4];
-    last5Children[2] = children[len - 3];
-    last5Children[3] = children[len - 2];
-    last5Children[4] = children[len - 1];
-    TweenMax.staggerFromTo(last5Children, 2, {y: "100%", opacity:0, ease:Power3.easeIn}, {y: "0%", opacity:1, ease:Power3.easeOut}, .15);
-
+    console.log("len:", len, "animotionSize", animotionSize)
+    for (let i = 0; i < animotionSize; i++) {
+      last5Children.push(children[len + i - animotionSize]);
+    }
+    TweenMax.staggerFromTo(last5Children, 2, 
+      {y: "100%", opacity:0, ease:Power3.easeIn}, {y: "0%", opacity:1, ease:Power3.easeOut}, .15);
   }, [posts])
 
   const loadMore = () => {
-    setPost([...posts, ...[{
-      title: 'Breaking News',
-      content: 'People load on Mars'
-    }, {
-      title: 'Lovely Girls',
-      content: 'pretty girls in the class'
-    }, {
-      title: 'Good Time',
-      content: 'Every Day is good time'
-    },{
-      title: 'Pretty Boy',
-      content: 'Every Day is good time'
-    },{
-      title: 'Fish Man',
-      content: 'Every Day is good time'
-    }]]);
+    setLoading(true);
+    axios.get("/api/posts", {params: {page: page, size: size}})
+      .then(res => res.data)
+      .then(res => {
+        setAnimotionSize(res.data.length);
+        if (res.data.length > 0){
+          setPost([...posts, ...res.data]);
+          setPage(page + 1)
+          setLoading(false);
+          console.log("posts:", posts)
+          console.log("res.data", res.data)
+        }
+      })
   } 
 
+  //loadMore();
+
   return (
-    <div ref={parent} className={classes.root}>
+    <>
       <Card className={classes.header}>
         <ButtonGroup variant="text" color="primary" aria-label="text primary button group" className={classes.button}>
           <Button>按时间</Button>
           <Button>按热度</Button>
         </ButtonGroup>
       </Card>
-      {posts.map(post => 
-        <Article key={post.title} post={post}/>
-      )}
-    </div>
+      <div ref={parent} className={classes.root}>
+        {posts.map(post => 
+          <Article key={post.title} post={post}/>
+        )}
+      </div>
+    </>
   );
 }

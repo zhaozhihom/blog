@@ -7,7 +7,7 @@ import FacebookIcon from '@material-ui/icons/Facebook';
 import TwitterIcon from '@material-ui/icons/Twitter';
 import Header from './Header';
 import Footer from './Footer';
-import {HashRouter as Router, Route} from "react-router-dom";
+import {BrowserRouter as Router, Route} from "react-router-dom";
 import Game from '../components/game/Game';
 import Articles from '../components/article/Articles';
 

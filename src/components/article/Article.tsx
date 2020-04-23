@@ -1,65 +1,98 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
-import CardActionArea from '@material-ui/core/CardActionArea';
-import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
-import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import classNames from 'classnames';
+import { IconButton, Collapse } from '@material-ui/core';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import clsx from 'clsx';
+import { coverTime } from '../../common/time';
+
 
 const useStyles = makeStyles((theme) => ({
-  area: {
-    display: 'flex',
-  },
   root: {
-    // marginLeft: '10%',
-    // width: '80%',
     borderRadius: 0
   },
   content: {
+    display: 'flex',
+  },
+  title: {
     flex: 1,
+    'text-align': 'initial',
   },
   cover: {
     width: 100,
   },
-  controls: {
-    display: 'flex',
-    alignItems: 'center',
-    paddingLeft: theme.spacing(1),
-    paddingBottom: theme.spacing(1),
-  },
   actionButton: {
+    flex: 1,
     display: 'block',
     textAlign: 'right'
   },
+  expand: {
+    transform: 'rotate(0deg)',
+    marginLeft: 'auto',
+    transition: theme.transitions.create('transform', {
+      duration: theme.transitions.duration.shortest,
+    }),
+  },
+  expandOpen: {
+    transform: 'rotate(180deg)',
+  },
+  postContent:{
+    'text-align': 'initial'
+  },
+  time: {
+    'font-family': "楷体",
+    'text-align': 'initial'
+  }
 }));
 
 export default function Article(props: any) {
 
   const classes = useStyles();
 
+  const [expanded, setExpanded] = React.useState(false);
+
+  const handleExpandClick = () => {
+    setExpanded(!expanded);
+  };
+
+  const {post} = props
+
   return (
     <Card className={classes.root}>
-      <CardActionArea className={classes.area}>
-        <CardContent className={classes.content}>
-          <Typography gutterBottom variant="h5" component="h2">
-            {props.post.title}
-          </Typography>
-          <Typography variant="body2" color="textSecondary" component="p">
-            {props.post.content}
-          </Typography>
-        </CardContent>
-      </CardActionArea>
-      <CardActions className={classes.actionButton}>
-        <Button size="small" color="primary">
-          Share
-        </Button>
-        <Button size="small" color="primary">
-          Learn More
-        </Button>
-      </CardActions>
+
+      <CardContent>
+        <Typography className={classes.time}>
+            {coverTime(post.postTime, 'yyyy年MM月dd日')}
+        </Typography>
+      </CardContent>
+      <CardContent className={classes.content}>
+
+        <Typography gutterBottom variant="h5" component="h2" className={classes.title}>
+          {post.title}
+        </Typography>
+
+        <IconButton
+          className={clsx(classes.expand, {
+            [classes.expandOpen]: expanded,
+          })}
+          onClick={handleExpandClick}
+          aria-expanded={expanded}
+          aria-label="show more"
+        >
+          <ExpandMoreIcon />
+        </IconButton>
+
+      </CardContent>
+
+      <Collapse in={expanded} timeout="auto" unmountOnExit>
+          <CardContent>
+            <Typography paragraph className={classes.postContent} dangerouslySetInnerHTML={{__html: post.content}}>
+
+            </Typography>
+          </CardContent>
+      </Collapse>
     </Card>
   )
 
