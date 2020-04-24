@@ -24,7 +24,6 @@ export default function Articles(props: any) {
   const size = 5;
   const [animotionSize, setAnimotionSize] = useState(0);
   const classes = useStyles();
-  const { title } = props;
   const [page, setPage] = useState(1)
   const [posts, setPost] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -83,19 +82,31 @@ export default function Articles(props: any) {
       })
   } 
 
+  const orderPosts = (orderField: string) => {
+    const newposts = [...posts].sort((post1: any, post2: any) => {
+      if (orderField === 'clickTimes') {
+        return post2.clickTimes - post1.clickTimes
+      } else {
+        return (new Date(post2.postTime)).getTime() - (new Date(post1.postTime)).getTime()
+      }
+    })
+    console.log("newposts:", newposts)
+    setPost(newposts)
+  }
+
   //loadMore();
 
   return (
     <>
       <Card className={classes.header}>
         <ButtonGroup variant="text" color="primary" aria-label="text primary button group" className={classes.button}>
-          <Button>按时间</Button>
-          <Button>按热度</Button>
+          <Button onClick={() => orderPosts("postTimes")}>按时间</Button>
+          <Button onClick={() => orderPosts("clickTimes")}>按热度</Button>
         </ButtonGroup>
       </Card>
       <div ref={parent} className={classes.root}>
         {posts.map(post => 
-          <Article key={post.title} post={post}/>
+          <Article key={post.id} post={post}/>
         )}
       </div>
     </>

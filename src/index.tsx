@@ -1,13 +1,25 @@
-import React from 'react';
+import React, { lazy, Suspense } from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import * as serviceWorker from './serviceWorker';
-import Blog from './layout/Blog';
+import { BrowserRouter as Router, Route } from "react-router-dom";
+
+const Blog = lazy(() => import('./blog-layout/Blog'));
+const Admin = lazy(() => import('./admin/Admin'));
 
 
 ReactDOM.render(
   <React.StrictMode>
-    <Blog />
+    <Router basename="/">
+      <Suspense fallback={<div>Loading...</div>}>
+        <Route exact path="/">
+          <Blog />
+        </Route>
+        <Route>
+          <Admin />
+        </Route>
+      </Suspense>
+    </Router>
   </React.StrictMode>,
   document.getElementById('root')
 );
