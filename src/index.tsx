@@ -4,7 +4,7 @@ import './index.css';
 import * as serviceWorker from './serviceWorker';
 import { BrowserRouter as Router, Route } from "react-router-dom";
 
-const Blog = lazy(() => import('./blog-layout/Blog'));
+const Blog = lazy(() => import('./blog/Blog'));
 const Admin = lazy(() => import('./admin/Admin'));
 
 
@@ -15,7 +15,7 @@ ReactDOM.render(
         <Route exact path="/">
           <Blog />
         </Route>
-        <Route>
+        <Route path="/admin">
           <Admin />
         </Route>
       </Suspense>

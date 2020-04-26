@@ -38,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
   expandOpen: {
     transform: 'rotate(180deg)',
   },
-  postContent:{
+  postContent: {
     'text-align': 'initial'
   },
   time: {
@@ -57,14 +57,14 @@ export default function Article(props: any) {
     setExpanded(!expanded);
   };
 
-  const {post} = props
+  const { post } = props
 
   return (
     <Card className={classes.root}>
 
       <CardContent>
         <Typography className={classes.time}>
-            {coverTime(post.postTime, 'yyyy年MM月dd日')}
+          {coverTime(post.postTime, 'yyyy年MM月dd日')}
         </Typography>
       </CardContent>
       <CardContent className={classes.content}>
@@ -87,11 +87,11 @@ export default function Article(props: any) {
       </CardContent>
 
       <Collapse in={expanded} timeout="auto" unmountOnExit>
-          <CardContent>
-            <Typography paragraph className={classes.postContent} dangerouslySetInnerHTML={{__html: post.content}}>
+        <CardContent>
+          <Typography paragraph className={classes.postContent} dangerouslySetInnerHTML={{ __html: post.content }}>
 
-            </Typography>
-          </CardContent>
+          </Typography>
+        </CardContent>
       </Collapse>
     </Card>
   )

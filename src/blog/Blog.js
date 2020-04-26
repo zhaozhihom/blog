@@ -4,8 +4,8 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import Container from '@material-ui/core/Container';
 import Header from './Header';
 import Footer from './Footer';
-import Game from '../components/game/Game';
-import Articles from '../components/article/Articles';
+import Game from './game/Game';
+import Articles from './article/Articles';
 
 
 
