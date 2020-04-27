@@ -2,7 +2,7 @@ import React from 'react'
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import SiderMenu from './SiderMenu';
-import { IconButton } from '@material-ui/core';
+import { IconButton, Toolbar, AppBar } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 import ArticleList from './article-list/ArticleList';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
@@ -13,6 +13,12 @@ const drawerWidth = 240;
 const useStyles = makeStyles(theme => ({
   root: {
     display: 'flex',
+  },
+  appBar: {
+    [theme.breakpoints.up('sm')]: {
+      width: `calc(100% - ${drawerWidth}px)`,
+      marginLeft: drawerWidth,
+    },
   },
   // necessary for content to be below app bar
   toolbar: theme.mixins.toolbar,
@@ -44,17 +50,21 @@ export default function Admin(props: any) {
     <div className={classes.root}>
       <Router basename="/admin">
         <CssBaseline />
-        <IconButton
-          color="inherit"
-          aria-label="open drawer"
-          edge="start"
-          onClick={handleDrawerToggle}
-          className={classes.menuButton}
-        >
-          <MenuIcon />
-        </IconButton>
-        <SiderMenu 
-          mobileOpen={mobileOpen} 
+        <AppBar color="inherit" position="fixed" className={classes.appBar}>
+          <Toolbar>
+            <IconButton
+              color="inherit"
+              aria-label="open drawer"
+              edge="start"
+              onClick={handleDrawerToggle}
+              className={classes.menuButton}
+            >
+              <MenuIcon />
+            </IconButton>
+          </Toolbar>
+        </AppBar>
+        <SiderMenu
+          mobileOpen={mobileOpen}
           handleDrawerToggle={handleDrawerToggle}
         >
         </SiderMenu>

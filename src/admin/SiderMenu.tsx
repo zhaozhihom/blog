@@ -58,7 +58,8 @@ export default function SiderMenu(props: any) {
 
   const drawer = (
     <div>
-      <div className={classes.toolbar} />
+      <div className={classes.toolbar} >
+      </div>
       <Divider />
       <List>
         {menus.map((menu, index) => (

@@ -24,48 +24,74 @@ const useStyles = makeStyles(theme => ({
 export default function ArticleEditor(props: any) {
 
   const { state } = useLocation();
+  const history = useHistory();
 
   const classes = useStyles();
 
-  const [post, setPost] = useState({title:'', content: ''})
+  const [post, setPost] = useState({ title: '', content: '' })
+  const [editor, setEditor] = useState(null)
 
   useEffect(() => {
+    console.log(state)
     if (state) {
-      setPost(state.post)
+      Axios.get(`/api/post/${state.id}`)
+        .then(res => res.data)
+        .then(res => {
+          setPost(res.data)
+          setEditor(BraftEditor.createEditorState(res.data.content))
+        })
+        .catch(err => {
+          console.error(err)
+        })
     }
   }, [])
 
   function savePost() {
-    Axios.post('/api/post', post)
-    .then(res => res.data)
-    .then(res => {
-      console.log(res)
-    })
-    .catch(err => {
-      console.error(err)
-    })
+    if (!post.id){
+      Axios.post('/api/post', post)
+      .then(res => res.data)
+      .then(res => {
+        history.push("/")
+      })
+      .catch(err => {
+        console.error(err)
+      })
+    } else {
+      Axios.put('/api/post', post)
+      .then(res => res.data)
+      .then(res => {
+        history.push("/")
+      })
+      .catch(err => {
+        console.error(err)
+      })
+    }
+    
   }
+
 
   return (
     <Container maxWidth="lg">
 
       <TextField className={classes.title}
+        value={post.title}
         onChange={(e) => {
           //console.log(e.target.value)
           setPost({ ...post, title: e.target.value })
         }} label="标题" />
       <Card className={classes.editor}>
         <BraftEditor
-          value={post.content}
+          value={editor}
           onChange={(e) => {
             //console.log(e.toHTML())
             setPost({ ...post, content: e.toHTML() })
-            }
+            setEditor(e)
+          }
           }
         />
       </Card>
       <div className={classes.options}>
-        <Button color="primary" onClick={savePost}>保存</Button>
+        <Button variant="contained" color="primary" onClick={savePost}>保存</Button>
       </div>
     </Container>
   )

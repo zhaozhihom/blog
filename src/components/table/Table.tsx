@@ -75,7 +75,7 @@ export default function CustomPaginationActionsTable(props: TableProps) {
       <Table className={classes.table} aria-label="custom pagination table">
         <TableHead>
           <TableRow>
-            {headers.map(header => <TableCell >{header}</TableCell>)}
+            {headers.map(header => <TableCell key={header}>{header}</TableCell>)}
           </TableRow>
         </TableHead>
         <TableBody>
@@ -86,24 +86,24 @@ export default function CustomPaginationActionsTable(props: TableProps) {
             <TableRow key={row.id}>
               {
                 Object.keys(row)
-                .filter(key => key !== 'id')
-                .map(key => <TableCell>{String(row[key])}</TableCell>)
+                  .filter(key => key !== 'id')
+                  .map(key => <TableCell>{String(row[key])}</TableCell>)
               }
               {
                 <TableCell>
                   {
-                  options.map(option => 
-                    <Button onClick={() => {option.fn(row.id)}}>
-                      {option.text}
-                    </Button>)
+                    options.map(option =>
+                      <Button variant="outlined"
+                        color={option.colorConver ? option.colorConver(row) : "primary"}
+                        size="small"
+                        onClick={() => { option.fn(row.id) }}>
+                        {
+                          option.textConver ? option.textConver(row) : option.text
+                        }
+                      </Button>)
                   }
                 </TableCell>
               }
-              {/* <TableCell component="th" scope="row">
-                {row.name}
-              </TableCell>
-              <TableCell align="right">{row.calories}</TableCell>
-              <TableCell align="right">{row.fat}</TableCell> */}
             </TableRow>
           ))}
           {emptyRows > 0 && (
