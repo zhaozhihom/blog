@@ -2,11 +2,13 @@ import React from 'react'
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import SiderMenu from './SiderMenu';
-import { IconButton, Toolbar, AppBar } from '@material-ui/core';
+import { IconButton, Toolbar, AppBar, Typography } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 import ArticleList from './article-list/ArticleList';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, useHistory } from 'react-router-dom';
 import ArticleEditor from './article-editor/AticleEditor';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import Axios from 'axios';
 
 const drawerWidth = 240;
 
@@ -19,6 +21,10 @@ const useStyles = makeStyles(theme => ({
       width: `calc(100% - ${drawerWidth}px)`,
       marginLeft: drawerWidth,
     },
+    flexGrow: 1,
+  },
+  title: {
+    flexGrow: 1,
   },
   // necessary for content to be below app bar
   toolbar: theme.mixins.toolbar,
@@ -35,15 +41,28 @@ const useStyles = makeStyles(theme => ({
       display: 'none',
     },
   },
+  logoutButton: {
+    marginRight: '10px'
+  }
 }));
 
 export default function Admin(props: any) {
 
   const classes = useStyles();
   const [mobileOpen, setMobileOpen] = React.useState(false);
+  const history = useHistory();
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
+  };
+
+  const logout = () => {
+    Axios.post('/api/public/logout')
+      .then(res => {
+        console.log(res.data)
+        history.push('/login')
+      })
+      .catch(err => alert(err))
   };
 
   return (
@@ -60,6 +79,18 @@ export default function Admin(props: any) {
               className={classes.menuButton}
             >
               <MenuIcon />
+            </IconButton>
+            <Typography variant="h6" className={classes.title}>
+              宏桑のBlog 
+            </Typography>
+            <IconButton
+              color="inherit"
+              aria-label="open drawer"
+              edge="end"
+              onClick={logout}
+              className={classes.logoutButton}
+            >
+              <ExitToAppIcon />
             </IconButton>
           </Toolbar>
         </AppBar>

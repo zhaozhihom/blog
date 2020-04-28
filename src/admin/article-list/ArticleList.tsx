@@ -36,13 +36,13 @@ export default function ArticleList() {
   ];
 
   function hiddePost(id: number) {
-    Axios.put(`/api/post/markdeleted/${id}`)
+    Axios.put(`/api/private/post/markdeleted/${id}`)
       .then(res => getData())
       .catch(err => console.error(err))
   }
 
   function getData() {
-    axios.get("/api/allpost")
+    axios.get("/api/public/allpost")
       .then(res => res.data)
       .then(res => {
         setRows(res.data);

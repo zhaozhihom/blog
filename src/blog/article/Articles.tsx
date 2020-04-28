@@ -68,7 +68,7 @@ export default function Articles(props: any) {
 
   const loadMore = () => {
     setLoading(true);
-    axios.get("/api/posts", {params: {page: page, size: size}})
+    axios.get("/api/public/posts", {params: {page: page, size: size}})
       .then(res => res.data)
       .then(res => {
         setAnimotionSize(res.data.length);

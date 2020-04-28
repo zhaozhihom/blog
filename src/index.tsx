@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import * as serviceWorker from './serviceWorker';
 import { BrowserRouter as Router, Route } from "react-router-dom";
+import AuthenticatedComp from './components/route/AuthenticatedComp';
+import Login from './admin/login/login';
 
 const Blog = lazy(() => import('./blog/Blog'));
 const Admin = lazy(() => import('./admin/Admin'));
@@ -15,8 +17,11 @@ ReactDOM.render(
         <Route exact path="/">
           <Blog />
         </Route>
+        <Route path="/login">
+          <Login></Login>
+        </Route>
         <Route path="/admin">
-          <Admin />
+          <AuthenticatedComp  component={Admin}></AuthenticatedComp>
         </Route>
       </Suspense>
     </Router>

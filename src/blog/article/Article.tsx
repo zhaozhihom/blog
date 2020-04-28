@@ -7,6 +7,7 @@ import { IconButton, Collapse } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import clsx from 'clsx';
 import { coverTime } from '../../common/time';
+import Axios from 'axios';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -53,11 +54,16 @@ export default function Article(props: any) {
 
   const [expanded, setExpanded] = React.useState(false);
 
+  const { post } = props
+
   const handleExpandClick = () => {
     setExpanded(!expanded);
+    Axios.put(`/api/public/post/click`, post)
+    .then(res => {
+      console.log("点击了文章:", post.title)
+    })
   };
 
-  const { post } = props
 
   return (
     <Card className={classes.root}>

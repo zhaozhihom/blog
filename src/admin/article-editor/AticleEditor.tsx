@@ -34,7 +34,7 @@ export default function ArticleEditor(props: any) {
   useEffect(() => {
     console.log(state)
     if (state) {
-      Axios.get(`/api/post/${state.id}`)
+      Axios.get(`/api/private/post/${state.id}`)
         .then(res => res.data)
         .then(res => {
           setPost(res.data)
@@ -48,7 +48,7 @@ export default function ArticleEditor(props: any) {
 
   function savePost() {
     if (!post.id){
-      Axios.post('/api/post', post)
+      Axios.post('/api/private/post', post)
       .then(res => res.data)
       .then(res => {
         history.push("/")
@@ -57,7 +57,7 @@ export default function ArticleEditor(props: any) {
         console.error(err)
       })
     } else {
-      Axios.put('/api/post', post)
+      Axios.put('/api/private/post', post)
       .then(res => res.data)
       .then(res => {
         history.push("/")
