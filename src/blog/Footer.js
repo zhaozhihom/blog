@@ -10,10 +10,11 @@ function Copyright() {
     <Typography variant="body2" color="textSecondary" align="center">
       {'Copyright © '}
       <Link color="inherit" href="https://material-ui.com/">
-        Your Website
+         Hom. All Rights Reserved.  
       </Link>{' '}
       {new Date().getFullYear()}
       {'.'}
+      <a href="http://www.beian.miit.gov.cn/">京ICP备19036429号</a>
     </Typography>
   );
 }
@@ -33,12 +34,6 @@ export default function Footer(props) {
   return (
     <footer className={classes.footer}>
       <Container maxWidth="lg">
-        <Typography variant="h6" align="center" gutterBottom>
-          {/* {title} */}
-        </Typography>
-        <Typography variant="subtitle1" align="center" color="textSecondary" component="p">
-          {description}
-        </Typography>
         <Copyright />
       </Container>
     </footer>

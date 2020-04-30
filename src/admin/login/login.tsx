@@ -107,7 +107,7 @@ export default function Login(props: any) {
         />
       </FormControl>
       <div className={clsx(classes.margin, classes.button)}>
-        <Button variant="contained" color="primary" onClick={login}>登陆</Button>
+        <Button variant="contained" color="primary" onClick={login}>登录</Button>
       </div>
     </Card>
   )
