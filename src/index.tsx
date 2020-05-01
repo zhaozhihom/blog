@@ -2,7 +2,7 @@ import React, { lazy, Suspense } from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import * as serviceWorker from './serviceWorker';
-import { HashRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route } from "react-router-dom";
 import AuthenticatedComp from './components/route/AuthenticatedComp';
 import Login from './admin/login/login';
 
@@ -10,10 +10,11 @@ const Blog = lazy(() => import('./blog/Blog'));
 const Admin = lazy(() => import('./admin/Admin'));
 
 
+
 ReactDOM.render(
   <React.StrictMode>
     <Router basename="/">
-      <Suspense fallback={<div>Loading...</div>}>
+    <Suspense fallback={<div className="loading">Loading...</div>}>
         <Route exact path="/">
           <Blog />
         </Route>

@@ -135,7 +135,6 @@ export default function Header(props) {
      
       <Grid container>
         <section>
-          {/* <div className={classes.titleCenter}>{title}</div> */}
           <div className="wave wave1"></div>
           <div className="wave wave2"></div>
           <div className="wave wave3"></div>

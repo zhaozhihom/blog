@@ -5,7 +5,7 @@ import SiderMenu from './SiderMenu';
 import { IconButton, Toolbar, AppBar, Typography } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 import ArticleList from './article-list/ArticleList';
-import { HashRouter as Router, Route, useHistory } from 'react-router-dom';
+import { BrowserRouter as Router, Route, useHistory } from 'react-router-dom';
 import ArticleEditor from './article-editor/AticleEditor';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import Axios from 'axios';
