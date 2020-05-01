@@ -8,6 +8,14 @@ module.exports = {
     // Drop noisy tslint plugin
     const EXCLUDED_PLUGINS = ['ForkTsCheckerWebpackPlugin'];
     config.plugins = config.plugins.filter(plugin => !EXCLUDED_PLUGINS.includes(plugin.constructor.name));
+    // config.plugins.push(
+    //     ["prismjs", {
+    //       "languages": ["go", "java", "javascript", "css", "html"],
+    //       "plugins": ["line-numbers", "show-language"],
+    //       "theme": "okaidia",
+    //       "css": true
+    //     }]
+    // )
     return config;
   },
   // The paths config to use when compiling your react app for development or production.

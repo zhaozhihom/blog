@@ -5,6 +5,7 @@ import Article from './Article';
 import { Card, ButtonGroup, Button } from '@material-ui/core';
 import axios from 'axios' 
 
+
 const useStyles = makeStyles((theme) => ({
   root: {
     textAlign: "center"
@@ -19,6 +20,7 @@ const useStyles = makeStyles((theme) => ({
     margin: '8px'
   }
 }));
+
 
 export default function Articles(props: any) {
   const size = 5;
@@ -64,6 +66,7 @@ export default function Articles(props: any) {
     }
     TweenMax.staggerFromTo(last5Children, 2, 
       {y: "100%", opacity:0, ease:Power3.easeIn}, {y: "0%", opacity:1, ease:Power3.easeOut}, .15);
+
   }, [posts])
 
   const loadMore = () => {

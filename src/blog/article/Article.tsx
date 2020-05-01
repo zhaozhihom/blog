@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
@@ -8,7 +8,24 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import clsx from 'clsx';
 import { coverTime } from '../../common/time';
 import Axios from 'axios';
+import Prism from 'prismjs';
+import '../../styles/prism-atom-dark.css'
+import 'prismjs/components/prism-java'
+import 'prismjs/components/prism-go'
+import 'prismjs/components/prism-javascript'
+import 'prismjs/components/prism-typescript'
+import 'prismjs/components/prism-python'
+import 'prismjs/components/prism-markup'
+import 'prismjs/components/prism-css'
+import 'prismjs/components/prism-bash'
+import 'prismjs/components/prism-docker'
+import 'prismjs/components/prism-yaml'
+import 'prismjs/components/prism-json'
 
+Prism.hooks.add('before-highlight', function(env) {
+  env.element.innerHTML = env.element.innerHTML.replace(/<br\s*\/?>/g,'\n');
+  env.code = env.element.textContent.replace(/^(?:\r?\n|\r)/,'');
+});
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -40,7 +57,7 @@ const useStyles = makeStyles((theme) => ({
     transform: 'rotate(180deg)',
   },
   postContent: {
-    'text-align': 'initial'
+    'text-align': 'initial',
   },
   time: {
     'font-family': "楷体",
@@ -64,6 +81,9 @@ export default function Article(props: any) {
     })
   };
 
+  useEffect(() => {
+    Prism.highlightAll();
+  }, [])
 
   return (
     <Card className={classes.root}>
@@ -92,11 +112,11 @@ export default function Article(props: any) {
 
       </CardContent>
 
-      <Collapse in={expanded} timeout="auto" unmountOnExit>
+      <Collapse in={expanded} timeout="auto">
         <CardContent>
-          <Typography paragraph className={classes.postContent} dangerouslySetInnerHTML={{ __html: post.content }}>
+          <div className={classes.postContent} dangerouslySetInnerHTML={{ __html: post.content }}>
 
-          </Typography>
+          </div>
         </CardContent>
       </Collapse>
     </Card>
