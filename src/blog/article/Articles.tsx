@@ -5,6 +5,7 @@ import Article from './Article';
 import { Card, ButtonGroup, Button, ListItem, ListItemText } from '@material-ui/core';
 import axios from 'axios'
 import { FixedSizeList, ListChildComponentProps } from 'react-window';
+import { throttle } from 'lodash';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -43,19 +44,15 @@ export default function Articles(props: any) {
   const [loading, setLoading] = useState(false);
   const parent = useRef(null);
   // Detect when scrolled to bottom.
-  window.onscroll = () => {
+  window.onscroll = throttle(() => {
     console.log('--------------scrolling---------------')
     if (
       document.body.scrollTop + document.body.clientHeight >=
       document.body.scrollHeight && !loading && animotionSize > 0
     ) {
-      setLoading(true);
-      setTimeout(() => {
         loadMore();
-        setLoading(false);
-      }, 2000);
     }
-  }
+  }, 2000)
 
   useEffect(() => {
     const p: HTMLDivElement = parent.current;

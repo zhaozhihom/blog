@@ -4,6 +4,7 @@ import 'braft-editor/dist/index.css'
 import { useParams, useLocation, useHistory, useRouteMatch } from 'react-router-dom';
 import { Card, makeStyles, Container, TextField, Typography, ButtonGroup, Button } from '@material-ui/core';
 import Axios from 'axios';
+import { throttle } from 'lodash';
 
 import 'braft-editor/dist/index.css';
 import '../../styles/prism-atom-dark.css'
@@ -145,8 +146,12 @@ export default function ArticleEditor(props: any) {
   const [post, setPost] = useState({ title: '', content: '' })
   const [editor, setEditor] = useState(null)
 
+  let handleEditorChange = throttle((e) => {
+    setPost({ ...post, content: e.toHTML() })
+    setEditor(e)
+  }, 500)
+
   useEffect(() => {
-    console.log(state)
     if (state) {
       Axios.get(`/api/private/post/${state.id}`)
         .then(res => res.data)
@@ -179,8 +184,7 @@ export default function ArticleEditor(props: any) {
       .catch(err => {
         console.error(err)
       })
-    }
-    
+    }    
   }
 
 
@@ -196,12 +200,7 @@ export default function ArticleEditor(props: any) {
       <Card className={classes.editor}>
         <BraftEditor
           value={editor}
-          onChange={(e) => {
-            //console.log(e.toHTML())
-            setPost({ ...post, content: e.toHTML() })
-            setEditor(e)
-          }
-          }
+          onChange={handleEditorChange}
         />
       </Card>
       <div className={classes.options}>
