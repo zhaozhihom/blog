@@ -58,6 +58,7 @@ const useStyles = makeStyles((theme) => ({
   },
   postContent: {
     'text-align': 'initial',
+    fontSize: '1rem'
   },
   time: {
     'font-family': "楷体",

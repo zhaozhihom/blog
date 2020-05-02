@@ -2,8 +2,9 @@ import React, { useState, useEffect, useRef } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { TimelineLite, Power3, TweenMax, Linear } from "gsap";
 import Article from './Article';
-import { Card, ButtonGroup, Button } from '@material-ui/core';
-import axios from 'axios' 
+import { Card, ButtonGroup, Button, ListItem, ListItemText } from '@material-ui/core';
+import axios from 'axios'
+import { FixedSizeList, ListChildComponentProps } from 'react-window';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -18,7 +19,18 @@ const useStyles = makeStyles((theme) => ({
   },
   button: {
     margin: '8px'
-  }
+  },
+  anchor: {
+    position: "fixed",
+    top: "180px",
+    left: "calc(85%)",
+    zIndex: 10,
+    backgroundColor: theme.palette.background.paper,
+  },
+  item: {
+    
+  },
+
 }));
 
 
@@ -38,7 +50,7 @@ export default function Articles(props: any) {
       document.body.scrollHeight && !loading && animotionSize > 0
     ) {
       setLoading(true);
-      setTimeout(()=> {
+      setTimeout(() => {
         loadMore();
         setLoading(false);
       }, 2000);
@@ -54,28 +66,28 @@ export default function Articles(props: any) {
     //   //childrenn.push(child.firstElementChild);
     //   //tl.from(child, 0.8, {rotation:60, transformOrigin:"-1024px -1024px", repeat:0, ease:Power3.easeOut})
     // })
-    if (page === 1 && !loading){
+    if (page === 1 && !loading) {
       loadMore()
     }
-    
+
     const last5Children = [];
     const len = children.length;
     console.log("len:", len, "animotionSize", animotionSize)
     for (let i = 0; i < animotionSize; i++) {
       last5Children.push(children[len + i - animotionSize]);
     }
-    TweenMax.staggerFromTo(last5Children, 2, 
-      {y: "100%", opacity:0, ease:Power3.easeIn}, {y: "0%", opacity:1, ease:Power3.easeOut}, .15);
+    TweenMax.staggerFromTo(last5Children, 2,
+      { y: "100%", opacity: 0, ease: Power3.easeIn }, { y: "0%", opacity: 1, ease: Power3.easeOut }, .15);
 
   }, [posts])
 
   const loadMore = () => {
     setLoading(true);
-    axios.get("/api/public/posts", {params: {page: page, size: size}})
+    axios.get("/api/public/posts", { params: { page: page, size: size } })
       .then(res => res.data)
       .then(res => {
         setAnimotionSize(res.data.length);
-        if (res.data.length > 0){
+        if (res.data.length > 0) {
           setPost([...posts, ...res.data]);
           setPage(page + 1)
           setLoading(false);
@@ -83,7 +95,7 @@ export default function Articles(props: any) {
           console.log("res.data", res.data)
         }
       })
-  } 
+  }
 
   const orderPosts = (orderField: string) => {
     const newposts = [...posts].sort((post1: any, post2: any) => {
@@ -98,6 +110,17 @@ export default function Articles(props: any) {
   }
 
   //loadMore();
+  function renderRow(props: ListChildComponentProps) {
+    const { data, index, style } = props;
+
+    console.log(style)
+  
+    return (
+      <ListItem focusVisibleClassName="itemfocus" className={classes.item} button style={style} key={index}>
+        <ListItemText primary={data[index].title} />
+      </ListItem>
+    );
+  }
 
   return (
     <>
@@ -108,10 +131,15 @@ export default function Articles(props: any) {
         </ButtonGroup>
       </Card>
       <div ref={parent} className={classes.root}>
-        {posts.map(post => 
-          <Article key={post.id} post={post}/>
+        {posts.map(post =>
+          <Article id={post.title} key={post.id} post={post} />
         )}
       </div>
+      {/* <div className={classes.anchor}>
+        <FixedSizeList height={400} width={120} itemSize={20} itemData={posts} itemCount={posts.length}>
+          {renderRow}  
+        </FixedSizeList>
+      </div> */}
     </>
   );
 }

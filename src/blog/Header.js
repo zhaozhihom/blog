@@ -14,7 +14,9 @@ import gsap, { TimelineLite, Power3, TweenMax, Linear, Power0, Power1, Power2 } 
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    backgroundImage: 'linear-gradient(#ffffff, #3586ff)'
+    backgroundImage: "url('image/Darling.in.the.FranXX.png')",
+    backgroundPosition: 'center',
+    backgroundSize: 'cover',
   },
   toolbar: {
     //borderBottom: `1px solid ${theme.palette.divider}`,
@@ -32,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
   toolbarTitle: {
     flex: 1,
     fontSize: '2rem',
-    opacity: 0
+    opacity: 1
   },
   toolbarSecondary: {
     justifyContent: 'space-between',
@@ -63,14 +65,14 @@ export default function Header(props) {
 
 
 
-    tl.to(whale.current, 2, 
-      {x: '7.8vw', y: '26vh', scale: 2,  opacity:1, rotation:30, transformOrigin:"50% 0%", ease:Power2.easeIn})
-      .to(whale.current, 3, 
-        {x: '27vw', y: '10vh', scale: 2,  opacity:1, rotation: -20, transformOrigin:"50% top", ease:Power2.easeOut, onComplete: titleTimeLine})
-        .to(whale.current, 2, 
-          {x: '44vw', y: '26vh', scale: 2,  opacity:1, rotation:40, transformOrigin:"50% 0%", ease:Power2.easeIn})
-          .to(whale.current, 0, 
-            {x: '0', y: '0', scale: 1,  opacity:1, rotation:0, transformOrigin:"center", ease:Power2.easeIn});
+    // tl.to(whale.current, 2, 
+    //   {x: '7.8vw', y: '26vh', scale: 2,  opacity:1, rotation:30, transformOrigin:"50% 0%", ease:Power2.easeIn})
+    //   .to(whale.current, 3, 
+    //     {x: '27vw', y: '10vh', scale: 2,  opacity:1, rotation: -20, transformOrigin:"50% top", ease:Power2.easeOut, onComplete: titleTimeLine})
+    //     .to(whale.current, 2, 
+    //       {x: '44vw', y: '26vh', scale: 2,  opacity:1, rotation:40, transformOrigin:"50% 0%", ease:Power2.easeIn})
+    //       .to(whale.current, 0, 
+    //         {x: '0', y: '0', scale: 1,  opacity:1, rotation:0, transformOrigin:"center", ease:Power2.easeIn});
     
   })
 
@@ -92,13 +94,13 @@ export default function Header(props) {
         {/* <Button size="small">Subscribe</Button> */}
         <RouteLink to="/" >
           <div ref={whale} className={classes.whaleBox}>
-            <img src="image/water.png"
+            {/* <img src="image/water.png"
                   height="20px" 
                   alt="..."
                   className={classes.whaleImage1}
                   style={{ opacity: showWater}}
                   ref={water}
-            ></img>
+            ></img> */}
             <img           
               src="image/whale-5-removebg-preview.png" 
               height="60px" 
@@ -135,10 +137,10 @@ export default function Header(props) {
      
       <Grid container>
         <section>
-          <div className="wave wave1"></div>
+          {/* <div className="wave wave1"></div>
           <div className="wave wave2"></div>
           <div className="wave wave3"></div>
-          <div className="wave wave4"></div>
+          <div className="wave wave4"></div> */}
         </section>
       </Grid>
 
