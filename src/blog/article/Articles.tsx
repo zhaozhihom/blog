@@ -1,10 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { TimelineLite, Power3, TweenMax, Linear } from "gsap";
+import { Power3, TweenMax } from "gsap";
 import Article from './Article';
-import { Card, ButtonGroup, Button, ListItem, ListItemText } from '@material-ui/core';
+import { Card, ButtonGroup, Button } from '@material-ui/core';
 import axios from 'axios'
-import { FixedSizeList, ListChildComponentProps } from 'react-window';
 import { throttle } from 'lodash';
 
 
@@ -44,8 +43,9 @@ export default function Articles(props: any) {
   const [loading, setLoading] = useState(false);
   const parent = useRef(null);
   // Detect when scrolled to bottom.
+  
   window.onscroll = throttle(() => {
-    console.log('--------------scrolling---------------')
+    console.log('----------scrolling-----------')
     if (
       document.body.scrollTop + document.body.clientHeight >=
       document.body.scrollHeight && !loading && animotionSize > 0
@@ -53,6 +53,15 @@ export default function Articles(props: any) {
         loadMore();
     }
   }, 2000)
+
+  // useEffect(() => {
+  //   console.log("---------add scroll----------")
+  //   window.addEventListener("scroll", onScroll);
+  //   return () => {
+  //     window.removeEventListener("scroll", onScroll);
+  //     console.log("---------remove scroll----------")
+  //   }
+  // },[])
 
   useEffect(() => {
     const p: HTMLDivElement = parent.current;
@@ -69,7 +78,6 @@ export default function Articles(props: any) {
 
     const last5Children = [];
     const len = children.length;
-    console.log("len:", len, "animotionSize", animotionSize)
     for (let i = 0; i < animotionSize; i++) {
       last5Children.push(children[len + i - animotionSize]);
     }
@@ -88,8 +96,6 @@ export default function Articles(props: any) {
           setPost([...posts, ...res.data]);
           setPage(page + 1)
           setLoading(false);
-          console.log("posts:", posts)
-          console.log("res.data", res.data)
         }
       })
   }
@@ -106,18 +112,17 @@ export default function Articles(props: any) {
     setPost(newposts)
   }
 
-  //loadMore();
-  function renderRow(props: ListChildComponentProps) {
-    const { data, index, style } = props;
+  // function renderRow(props: ListChildComponentProps) {
+  //   const { data, index, style } = props;
 
-    console.log(style)
+  //   console.log(style)
   
-    return (
-      <ListItem focusVisibleClassName="itemfocus" className={classes.item} button style={style} key={index}>
-        <ListItemText primary={data[index].title} />
-      </ListItem>
-    );
-  }
+  //   return (
+  //     <ListItem focusVisibleClassName="itemfocus" className={classes.item} button style={style} key={index}>
+  //       <ListItemText primary={data[index].title} />
+  //     </ListItem>
+  //   );
+  // }
 
   return (
     <>

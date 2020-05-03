@@ -1,4 +1,4 @@
-import React, {useRef, useEffect, useState} from 'react';
+import React, {useRef, useState} from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -7,10 +7,9 @@ import Typography from '@material-ui/core/Typography';
 import GitHubIcon from '@material-ui/icons/GitHub';
 import TwitterIcon from '@material-ui/icons/Twitter';
 import { Link as RouteLink } from 'react-router-dom';
-import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import '../styles/Header.css';
-import gsap, { TimelineLite, Power3, TweenMax, Linear, Power0, Power1, Power2 } from "gsap";
+import { TimelineLite, Power3, TweenMax } from "gsap";
 
 const useStyles = makeStyles((theme) => ({
   root: {
