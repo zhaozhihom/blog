@@ -14,7 +14,7 @@ import gsap, { TimelineLite, Power3, TweenMax, Linear, Power0, Power1, Power2 } 
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    backgroundImage: "url('image/Darling.in.the.FranXX.png')",
+    backgroundImage: "url('image/Darling.in.the.FranXX.jpg')",
     backgroundPosition: 'center',
     backgroundSize: 'cover',
   },
@@ -57,24 +57,24 @@ export default function Header(props) {
   const titlee = useRef(null);
   const [showWater, setShowWater] = useState(0);
 
-  useEffect(() => {
-    const windowWidth = window.innerWidth;
-    console.log('windowWidth: ', windowWidth);
-    const deviceType = detectDeviceType();
-    const titleDiv: HTMLElement = titlee.current;
+  // useEffect(() => {
+  //   const windowWidth = window.innerWidth;
+  //   console.log('windowWidth: ', windowWidth);
+  //   const deviceType = detectDeviceType();
+  //   const titleDiv: HTMLElement = titlee.current;
 
 
 
-    // tl.to(whale.current, 2, 
-    //   {x: '7.8vw', y: '26vh', scale: 2,  opacity:1, rotation:30, transformOrigin:"50% 0%", ease:Power2.easeIn})
-    //   .to(whale.current, 3, 
-    //     {x: '27vw', y: '10vh', scale: 2,  opacity:1, rotation: -20, transformOrigin:"50% top", ease:Power2.easeOut, onComplete: titleTimeLine})
-    //     .to(whale.current, 2, 
-    //       {x: '44vw', y: '26vh', scale: 2,  opacity:1, rotation:40, transformOrigin:"50% 0%", ease:Power2.easeIn})
-    //       .to(whale.current, 0, 
-    //         {x: '0', y: '0', scale: 1,  opacity:1, rotation:0, transformOrigin:"center", ease:Power2.easeIn});
+  //   // tl.to(whale.current, 2, 
+  //   //   {x: '7.8vw', y: '26vh', scale: 2,  opacity:1, rotation:30, transformOrigin:"50% 0%", ease:Power2.easeIn})
+  //   //   .to(whale.current, 3, 
+  //   //     {x: '27vw', y: '10vh', scale: 2,  opacity:1, rotation: -20, transformOrigin:"50% top", ease:Power2.easeOut, onComplete: titleTimeLine})
+  //   //     .to(whale.current, 2, 
+  //   //       {x: '44vw', y: '26vh', scale: 2,  opacity:1, rotation:40, transformOrigin:"50% 0%", ease:Power2.easeIn})
+  //   //       .to(whale.current, 0, 
+  //   //         {x: '0', y: '0', scale: 1,  opacity:1, rotation:0, transformOrigin:"center", ease:Power2.easeIn});
     
-  })
+  // })
 
   const titleTimeLine = () => {
     //setShowWater(1);

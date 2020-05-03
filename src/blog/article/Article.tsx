@@ -61,7 +61,6 @@ const useStyles = makeStyles((theme) => ({
     fontSize: '1rem'
   },
   time: {
-    'font-family': "楷体",
     'text-align': 'initial'
   }
 }));
