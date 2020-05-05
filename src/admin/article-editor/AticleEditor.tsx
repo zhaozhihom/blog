@@ -147,7 +147,6 @@ export default function ArticleEditor(props: any) {
   const [editor, setEditor] = useState(null)
 
   const handleEditorChange = throttle((e) => {
-    console.log(e.toHTML())
     setPost({ ...post, content: e.toHTML() })
     setEditor(e)
   }, 1000)
