@@ -14,7 +14,7 @@ function Copyright() {
       </Link>{' '}
       {new Date().getFullYear()}
       {'.'}
-      <a href="http://www.beian.miit.gov.cn/">京ICP备19036429号</a>
+      <a href="http://www.beian.miit.gov.cn/">京ICP备19036429-1号</a>
     </Typography>
   );
 }

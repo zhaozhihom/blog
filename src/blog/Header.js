@@ -122,7 +122,7 @@ export default function Header(props) {
         <IconButton color="inherit">
           <TwitterIcon></TwitterIcon>
         </IconButton>
-        <IconButton color="inherit">
+        <IconButton href="https://github.com/zhaozhihom" target="blank" color="inherit">
           <GitHubIcon></GitHubIcon>
         </IconButton>
         {/* <IconButton>

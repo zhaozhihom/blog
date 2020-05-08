@@ -32,8 +32,9 @@ code {
 
 /* .itemfocus {
   background-color: "#00a1d6"
-}
+} */
 
 .image-wrap > img {
-  width: 100%;
-} */
+  max-width: 100%;
+  max-height: 100%;
+}
