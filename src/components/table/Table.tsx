@@ -68,13 +68,15 @@ export default function CustomPaginationActionsTable(props: TableProps) {
               {
                 Object.keys(row)
                   .filter(key => key !== 'id')
-                  .map(key => <TableCell>{String(row[key])}</TableCell>)
+                  .map(key => <TableCell key={key}>{String(row[key])}</TableCell>)
               }
               {
                 <TableCell>
                   {
                     options.map(option =>
-                      <Button variant="outlined"
+                      <Button 
+                        key={option.text}
+                        variant="outlined"
                         color={option.colorConver ? option.colorConver(row) : "primary"}
                         size="small"
                         onClick={() => { option.fn(row.id) }}>

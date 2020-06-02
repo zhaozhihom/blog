@@ -7,6 +7,7 @@ import AuthenticatedComp from './components/route/AuthenticatedComp';
 import Login from './admin/login/login';
 import { theme1 } from "./theme/index";
 import { ThemeProvider } from '@material-ui/core';
+import Resume from './resume/Resume';
 
 const Blog = lazy(() => import('./blog/Blog'));
 const Admin = lazy(() => import('./admin/Admin'));
@@ -26,6 +27,9 @@ ReactDOM.render(
           </Route>
           <Route path="/admin">
             <AuthenticatedComp component={Admin}></AuthenticatedComp>
+          </Route>
+          <Route path="/resume">
+            <Resume></Resume>
           </Route>
         </Suspense>
       </Router>
